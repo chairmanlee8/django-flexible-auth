@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block innerContent %}
+    <table>
+        <caption>The Authentitron<img src="{{ STATIC_URL }}bender.gif" /></caption>
+        <tr>
+            {% if user.is_authenticated %}
+                <th>Logout</th>
+                <th>User Details</th>
+                <th>Associated Accounts</th>
+                <th>Associate an Account</th>
+            {% else %}
+                <th>Login</th>
+                <th>Make an Account</th>
+            {% endif %}
+        </tr>
+        <tr>
+            {% if user.is_authenticated %}
+                <td>
+                    <ul>
+                        <li><a href="{% url logout %}">Logout</a></li>
+                    </ul>
+                </td>
+                <td>
+                    <ul>
+                        <li>First name: {% firstof user.first_name "(none)" %}</li>
+                        <li>Last name: {% firstof user.last_name "(none)" %}</li>
+                    </ul>
+                </td>
+                <td>
+                    <p>Click to unassociate.</p>
+                    <ul>
+                        {% for provider in user.authlink_set.all %}
+                            <li><a href="{% url flexible_auth:auth-unlink provider.service_name %}">{{ provider.provider_name }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </td>
+                <td>
+                    <ul>
+                        {% for provider_id, provider_name in user.authlinkmeta.providers %}
+                            <li><a href="{% url flexible_auth:auth-process provider_id 0 %}">{{ provider_name }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </td>
+            {% else %}
+                <td>
+                    <ul>
+                        <li><a href="{% url login-view %}">Django</a></li>
+                    </ul>
+                </td>
+                <td>
+                </td>
+            {% endif %}
+        </tr>
+    </table>
+{% endblock %}

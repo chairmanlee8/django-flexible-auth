@@ -1,0 +1,30 @@
+<html>
+    <head>
+        <title>The Authentitron</title>
+        
+        <style type="text/css">
+            table {
+                border: 1px solid black;
+            }
+            
+            th, td {
+                border: 1px dotted black;
+            }
+            
+            caption {
+                font-size: 1.5em;
+            }
+        </style>
+        
+        {% block headBottom %}
+        {% endblock %}
+    </head>
+    
+    <body>
+        {% block innerContent %}
+        {% endblock %}
+        
+        {% block bodyBottom %}
+        {% endblock %}
+    </body>
+</html>

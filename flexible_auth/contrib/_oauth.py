@@ -1,0 +1,2 @@
+# Here lies some OAuth models necessary for session storage (during authentication, which spans several requests)
+# Eventually we'll put an actual OAuth superclass or mixin here, to support a variety of services.
